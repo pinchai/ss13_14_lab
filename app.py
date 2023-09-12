@@ -13,7 +13,7 @@ def hello_world():
         products.append(
             {
                 'id': 1,
-                'name': 'coca cola',
+                'name': gen.name(),
                 'old_price': random.randint(20, 500),
                 'discount': random.randint(1, 100),
                 'description': gen.sentence()
@@ -29,6 +29,13 @@ def hello_world():
         )
 
     return render_template('product_card.html', products=products, categories=categories)
+
+
+@app.route('/detail/<string:id>')
+def detail(id):
+
+    return render_template('product_detail.html', id=id)
+
 
 
 if __name__ == '__main__':
