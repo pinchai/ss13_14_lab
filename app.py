@@ -8,7 +8,8 @@ app = Flask(__name__)
 def hello_world():
     gen = DocumentGenerator()
     products = []
-    for item in range(12):
+    categories = []
+    for item in range(40):
         products.append(
             {
                 'id': 1,
@@ -19,7 +20,15 @@ def hello_world():
             },
         )
 
-    return render_template('product_card.html', products=products)
+    for category in range(10):
+        categories.append(
+            {
+                'id': 1,
+                'name': 'coca cola',
+            },
+        )
+
+    return render_template('product_card.html', products=products, categories=categories)
 
 
 if __name__ == '__main__':
