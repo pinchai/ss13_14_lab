@@ -1,41 +1,66 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import random
 from essential_generators import DocumentGenerator
+
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello_world():
-    gen = DocumentGenerator()
+    filter_category = request.args.get('filter_category', default='all');
+    # gen = DocumentGenerator()
     products = []
-    categories = []
-    for item in range(40):
+    categories = [
+        {
+            'id': 1,
+            'name': 'drink',
+        },
+        {
+            'id': 1,
+            'name': 'beer',
+        },
+        {
+            'id': 1,
+            'name': 'food',
+        },
+        {
+            'id': 1,
+            'name': 'water',
+        }
+
+    ]
+    filter_product = []
+
+    for item in range(14):
+        category = random.choice(categories)
         products.append(
             {
                 'id': 1,
-                'name': gen.name(),
+                'name': 'sting',
+                'category': category['name'],
                 'old_price': random.randint(20, 500),
                 'discount': random.randint(1, 100),
-                'description': gen.sentence()
+                'description': ''
             },
         )
 
-    for category in range(10):
-        categories.append(
-            {
-                'id': 1,
-                'name': 'coca cola',
-            },
-        )
+    for product in products:
+        if product['category'] == filter_category:
+            filter_product.append(product)
+        elif filter_category == 'all':
+            filter_product = products
 
-    return render_template('product_card.html', products=products, categories=categories)
+    return render_template(
+        'product_card.html',
+        products=filter_product,
+        categories=categories,
+        filter_category=filter_category
+    )
 
 
 @app.route('/detail/<string:id>')
 def detail(id):
-
     return render_template('product_detail.html', id=id)
-
 
 
 if __name__ == '__main__':
