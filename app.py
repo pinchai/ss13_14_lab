@@ -47,7 +47,7 @@ def hello_world():
     for product in products:
         if product['category'] == filter_category:
             filter_product.append(product)
-        elif filter_category == 'all':
+        elif filter_category == 'all' or filter_category == '':
             filter_product = products
 
     return render_template(
