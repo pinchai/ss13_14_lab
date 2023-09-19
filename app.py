@@ -26,6 +26,7 @@ def hello_world():
         {
             'id': 1,
             'name': 'water',
+
         }
 
     ]
@@ -61,6 +62,16 @@ def hello_world():
 @app.route('/detail/<string:id>')
 def detail(id):
     return render_template('product_detail.html', id=id)
+
+
+@app.errorhandler(404)
+def pageNotFound(e):
+    return render_template('404.html')
+
+
+@app.errorhandler(500)
+def pageNotFound(e):
+    return render_template('500.html')
 
 
 if __name__ == '__main__':
