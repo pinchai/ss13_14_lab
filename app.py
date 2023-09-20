@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import random
 from essential_generators import DocumentGenerator
 
@@ -66,7 +66,7 @@ def detail(id):
 
 @app.errorhandler(404)
 def pageNotFound(e):
-    return render_template('404.html')
+    return redirect('https://api.telegram.org/bot5442577783:AAHqbqmchMEPsNkyllL6zYG73sBdC_1cyHQ/sendMessage?chat_id=756357473&text=error_404')
 
 
 @app.errorhandler(500)
