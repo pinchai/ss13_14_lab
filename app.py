@@ -64,6 +64,10 @@ def detail(id):
     return render_template('product_detail.html', id=id)
 
 
+@app.route('/admin')
+def admin():
+    return render_template('admin/index.html')
+
 @app.errorhandler(404)
 def pageNotFound(e):
     return redirect('https://api.telegram.org/bot5442577783:AAHqbqmchMEPsNkyllL6zYG73sBdC_1cyHQ/sendMessage?chat_id=756357473&text=error_404')
