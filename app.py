@@ -66,17 +66,28 @@ def detail(id):
 
 @app.route('/admin')
 def admin():
-    return render_template('admin/index.html')
+    return render_template('admin/master.html')
+
+@app.route('/admin/student')
+def indexStudent():
+    return render_template('admin/student/index.html', module='student')
+@app.route('/admin/add_student')
+def addStudent():
+    return render_template('admin/student/add.html')
 
 
-@app.route('/add_student')
-def add_student():
-    return render_template('admin/add_student.html')
+@app.route('/admin/category')
+def indexCategory():
+    return render_template('admin/category/index.html', module='category')
+@app.route('/admin/add_category')
+def addCategory():
+    return render_template('admin/category/add.html')
+
 
 
 @app.errorhandler(404)
 def pageNotFound(e):
-    return redirect('https://api.telegram.org/bot5442577783:AAHqbqmchMEPsNkyllL6zYG73sBdC_1cyHQ/sendMessage?chat_id=756357473&text=error_404')
+    return redirect('https://api.telegram.org/bot5442577783:AAHqbqmchMEPsNkyllL6zYG73sBdC_1cyHQ/sendMessage?chat_id=756357473--&text=error_404')
 
 
 @app.errorhandler(500)

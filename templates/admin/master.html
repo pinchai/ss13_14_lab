@@ -151,11 +151,17 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="{{ url_for('indexStudent') }}" class="nav-link {% if module == 'student' %} active {% endif %}">
                             <i class="nav-icon fas fa-user-graduate"></i>
+                            <p>Student</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('indexCategory') }}" class="nav-link {% if module == 'category' %} active {% endif %}">
+                            <i class="nav-icon fas fa-cube"></i>
                             <p>
-                                Student
-                                <span class="right badge badge-danger">10</span>
+                                Category
+{#                                <span class="right badge badge-danger">10</span>#}
                             </p>
                         </a>
                     </li>
@@ -217,83 +223,9 @@
 
         <!-- Main content -->
         <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h5 class="m-0">
-                                            <i class="fas fa-user-graduate"></i>
-                                            Student list
-                                        </h5>
-                                    </div>
-                                    <div class="col-6">
-                                        <a href="{{ url_for('add_student') }}">
-                                             <button
-                                                type="button"
-                                                class="btn btn-outline-success float-right"
-                                        >
-                                            <i class="fas fa-plus-circle"></i>
-                                            Add Student
-                                        </button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-borderless table-striped">
-                                        <thead>
-                                        <tr class="bg-primary">
-                                            <th>Id</th>
-                                            <th>Profile</th>
-                                            <th>Name</th>
-                                            <th>Gender</th>
-                                            <th>Age</th>
-                                            <th>Address</th>
-                                            <th>DOB</th>
-                                            <th>POB</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for item in range(10) %}
-                                            <tr>
-                                                <td>{{ loop.index }}</td>
-                                                <td>Profile</td>
-                                                <td>LAY LAY</td>
-                                                <td>F</td>
-                                                <td>18</td>
-                                                <td>PP</td>
-                                                <td>10/08/1996</td>
-                                                <td>Kert Nov Pet</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button" class="btn btn-outline-secondary ml-1 mr-1">
-                                                            Edit
-                                                            <i class="far fa-edit"></i>
-                                                        </button>
-                                                    </a>
-                                                    <a href="#">
-                                                        <button type="button" class="btn btn-outline-danger ml-1 mr-1">
-                                                            Delete
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% block main_content %}{% endblock %}
         </div>
+
     </div>
 
     <!-- Control Sidebar -->
@@ -316,9 +248,6 @@
         <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
     </footer>
 </div>
-<!-- ./wrapper -->
-
-
 <!-- jQuery -->
 <script src="/static/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
