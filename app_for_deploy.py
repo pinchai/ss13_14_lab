@@ -5,9 +5,6 @@ import sqlite3
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
 
-BASE_URL = 'http://127.0.0.1:5000'
-
-
 @app.route('/')
 def web():
     products = []

@@ -6,7 +6,7 @@
     <title>Product Card</title>
     {% include "header/header.html" %}
 </head>
-<body oncontextmenu='return false' class='snippet-body'>
+<body class='snippet-body'>
 <div class="container mt-1">
     <div class="row mt-1 p-2"
          style="border-radius: 5px;
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <a href="/detail/{{ item.name }}" target="_blank">
-                            <img src="https://phama-tech.com/flask/static/sting-energy-drink.jpeg"
+                            <img src="{{ getBaseUrl() }}/static/sting-energy-drink.jpeg"
                                  class="img-fluid rounded thumbnail-image">
                         </a>
 

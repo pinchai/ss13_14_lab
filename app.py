@@ -10,7 +10,20 @@ app = Flask(__name__)
 #conn.execute('CREATE TABLE students (name TEXT, gender TEXT, age TEXT, address TEXT)')
 # conn.close()
 
-BASE_URL = 'http://127.0.0.1:5000'
+
+@app.context_processor
+def utility_processor():
+    def getBaseUrl():
+        return 'http://127.0.0.1:5000'
+
+    def getImagePath():
+        return 'http://127.0.0.1:5000/'
+
+    return dict(
+        getBaseUrl=getBaseUrl,
+        getImagePath=getImagePath
+    )
+
 
 @app.route('/')
 def web():
