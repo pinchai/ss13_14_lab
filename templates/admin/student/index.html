@@ -25,6 +25,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-sm table-borderless table-striped">
@@ -42,18 +43,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in range(10) %}
+                                {% for row in rows %}
                                     <tr>
                                         <td>{{ loop.index }}</td>
-                                        <td>Profile</td>
-                                        <td>LAY LAY</td>
-                                        <td>F</td>
-                                        <td>18</td>
-                                        <td>PP</td>
-                                        <td>10/08/1996</td>
-                                        <td>Kert Nov Pet</td>
+                                        <td>image</td>
+                                        <td>{{ row['name'] }}</td>
+                                        <td>{{ row['gender'] }}</td>
+                                        <td>{{ row['age'] }}</td>
+                                        <td>{{ row['address'] }}</td>
+                                        <td>...</td>
+                                        <td>...</td>
                                         <td>
-                                            <a href="#">
+                                            <a href="{{ BASE_URL }}/admin/edit_student/{{ row['name'] }}">
                                                 <button type="button" class="btn btn-outline-secondary ml-1 mr-1">
                                                     Edit
                                                     <i class="far fa-edit"></i>
