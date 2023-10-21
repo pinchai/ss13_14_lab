@@ -1,19 +1,8 @@
 from flask import Flask, render_template
 import random
 import sqlite3
-import os
 
-app = Flask(__name__)
-
-# conn = sqlite3.connect('database.db')
-# print("Opened database successfully")
-# conn.execute('CREATE TABLE students (name TEXT, gender TEXT, age TEXT, address TEXT)')
-# conn.close()
-
-project_root = os.path.dirname(os.path.realpath('__file__'))
-template_path = os.path.join(project_root, 'app/templates')
-static_path = os.path.join(project_root, 'app/static')
-app = Flask(__name__, template_folder=template_path, static_folder=static_path)
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
 
 BASE_URL = 'http://127.0.0.1:5000'
@@ -22,7 +11,7 @@ BASE_URL = 'http://127.0.0.1:5000'
 @app.route('/')
 def web():
     products = []
-    for item in range(150):
+    for item in range(12):
         products.append(
             {
                 'id': 1,
