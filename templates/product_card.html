@@ -7,13 +7,15 @@
     {% include "header/header.html" %}
 </head>
 <body class='snippet-body'>
-<div class="container mt-1">
+<div id="app" class="container mt-1">
     <div class="row mt-1 p-2"
          style="border-radius: 5px;
                 position: sticky; top: 0; z-index: 100; background-color: whitesmoke"
     >
         <a href="?filter_category=all">
-            <button type="button" class="btn btn-outline-primary ml-1 mr-1 {% if filter_category == 'all' %} active {% endif %}">All</button>
+            <button type="button"
+                    class="btn btn-outline-primary ml-1 mr-1 {% if filter_category == 'all' %} active {% endif %}">All
+            </button>
         </a>
         {% for category in categories %}
             <a href="?filter_category={{ category.name }}">
@@ -86,5 +88,32 @@
     </div>
 </div>
 <script type='text/javascript'></script>
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+<!--  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>-->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
+<script>
+    $.LoadingOverlay("show", {
+        background: "rgba(1, 1, 1, 0.2)"
+    });
+    const {createApp} = Vue
+    createApp({
+        create() {
+        },
+        data() {
+            return {
+                api_url: 'https://fakestoreapi.com/products',
+            }
+        },
+        methods: {},
+        created() {
+
+            axios.get(this.api_url).then(response => {
+                this.results = response.data
+                $.LoadingOverlay("hide")
+            })
+        }
+    }).mount('#app')
+</script>
 </html>

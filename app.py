@@ -1,14 +1,9 @@
 from flask import Flask, render_template
 import random
-import sqlite3
 
 app = Flask(__name__)
 
-# conn = sqlite3.connect('database.db')
-# print("Opened database successfully")
-
-#conn.execute('CREATE TABLE students (name TEXT, gender TEXT, age TEXT, address TEXT)')
-# conn.close()
+app.secret_key = 'your secret key'
 
 
 @app.context_processor
@@ -28,7 +23,7 @@ def utility_processor():
 @app.route('/')
 def web():
     products = []
-    for item in range(150):
+    for item in range(12):
         products.append(
             {
                 'id': 1,
@@ -37,7 +32,6 @@ def web():
                 'discount': random.randint(1, 100),
             },
         )
-
     return render_template('product_card.html', products=products)
 
 
@@ -62,7 +56,6 @@ def indexStudent():
     return render_template(
         'admin/student/index.html',
         module='student',
-        BASE_URL=BASE_URL,
         rows=rows
     )
 
