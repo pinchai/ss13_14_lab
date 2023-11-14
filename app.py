@@ -1,10 +1,15 @@
 from flask import Flask, render_template
+from sqlalchemy import create_engine, text
 import random
+import sqlite3
 
 app = Flask(__name__)
 
+engine = create_engine("mysql+mysqlconnector://root:mysql@localhost/ss13.14_pos")
+connection = engine.connect()
 app.secret_key = 'your secret key'
 
+import routes
 
 @app.context_processor
 def utility_processor():
@@ -22,17 +27,8 @@ def utility_processor():
 
 @app.route('/')
 def web():
-    products = []
-    for item in range(12):
-        products.append(
-            {
-                'id': 1,
-                'name': '',
-                'old_price': random.randint(20, 500),
-                'discount': random.randint(1, 100),
-            },
-        )
-    return render_template('product_card.html', products=products)
+    result = connection.execute(text("SELECT * FROM product"))
+    return render_template('product_card.html', products=result)
 
 
 @app.route('/detail/<string:id>')
