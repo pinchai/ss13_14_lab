@@ -14,21 +14,28 @@
          style="border-radius: 5px;
                 position: sticky; top: 0; z-index: 100; background-color: whitesmoke"
     >
-        <a href="?filter_category=all">
-            <button type="button"
-                    class="btn btn-outline-primary ml-1 mr-1">All
+        <a>
+            <button
+                    type="button"
+                    class="btn btn-outline-primary ml-1 mr-1"
+                    @click="searchByCategory('all')"
+            >
+                All
             </button>
         </a>
-        <a>
+        <a
+                v-for="(category, index) in category_list"
+                :key="'category_'+index"
+        >
             <button
                     type="button"
                     class="btn btn-outline-primary ml-1 mr-1 active"
                     style="text-transform: uppercase"
+                    @click="searchByCategory(category.id)"
             >
-                category.name
+                [[ category.name ]]
             </button>
         </a>
-
         <div class="input-group flex-nowrap mt-2">
             <input
                     v-model="txt_src"
@@ -41,7 +48,7 @@
     </div>
     <br>
     <br>
-    <div class="row">
+    <div class="row" id="product_list">
         <div
                 v-for="(item, index) in this.product_list"
                 class="col-md-3 mb-4">
@@ -51,12 +58,12 @@
                         <div class="d-flex justify-content-between align-items-center"
                         ><span
                                 style="background-color: #366f69; font-size: 12px"
-                                class="discount">item.category</span> <span
+                                class="discount">[[ item.category ]]</span> <span
                                 class="wishlist"><i class="fa fa-heart-o"></i></span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center"><span
                                 style="font-size: 14px"
-                                class="discount">-item.discount%</span> <span
+                                class="discount">-0%</span> <span
                                 class="wishlist"><i class="fa fa-heart-o"></i></span>
                         </div>
                     </div>
@@ -70,7 +77,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="dress-name">[[ item.name ]]</h5>
                         <div class="d-flex flex-column mb-2">
-                            <span class="new-price">0</span>
+                            <span class="new-price">[[ item.price ]]</span>
                             <small class="old-price text-right" style="font-weight: lighter; font-size: 14px">
                                 <del>
                                     $0
@@ -109,6 +116,7 @@
             color: 'bg-primary',
             is_start: false,
             product_list: [],
+            category_list: [],
             txt_src: null,
             typingTimer: null,
             doneTypingInterval: 1000,
@@ -135,37 +143,44 @@
             liveSearch(evt) {
                 let vm = this
                 clearTimeout(this.typingTimer)
-                if (this.txt_src.trim() !== '') {
-                    this.typingTimer = setTimeout(function () {
-                        $.LoadingOverlay("show");
-                        let payload = vm.txt_src.trim()
-                        let url = `http://127.0.0.1:5000/get_product_by_filter?txt_src=${payload}`
-                        axios.get(url).then(response => {
-                            vm.product_list = response.data
-                            $.LoadingOverlay("hide");
-                        }).catch(function (error) {
-                            alert('error: ' + error.message)
-                            $.LoadingOverlay("hide");
-                        });
-                    }, this.doneTypingInterval)
-                } else {
-                    this.typingTimer = setTimeout(function () {
-                        this.product_lists = []
-                    }, this.doneTypingInterval)
+                this.typingTimer = setTimeout(function () {
+                     $("#product_list").LoadingOverlay("show");
+                    let payload = vm.txt_src.trim()
+                    let url = `{{ getBaseUrl() }}/get_product_by_filter?txt_src=${payload}`
+                    axios.get(url).then(response => {
+                        vm.product_list = response.data
+                         $("#product_list").LoadingOverlay("hide");
+                    }).catch(function (error) {
+                        alert('error: ' + error.message)
+                         $("#product_list").LoadingOverlay("hide");
+                    });
+                }, this.doneTypingInterval)
+            },
+            searchByCategory(category_id) {
+                $("#product_list").LoadingOverlay("show");
+                let input = {
+                    'category_id': category_id
                 }
+                axios.post('{{ getBaseUrl() }}/get_product_by_category', input).then(response => {
+                    this.product_list = response.data
+                   $("#product_list").LoadingOverlay("hide");
+                }).catch(function (error) {
+                    alert('error: ' + error.message)
+                   $("#product_list").LoadingOverlay("hide");
+                });
             },
         },
         created() {
             $.LoadingOverlay("show");
         },
         mounted() {
-            axios.get('http://127.0.0.1:5000/get_all_product').then(response => {
-                this.product_list = response.data
+            axios.get('{{ getBaseUrl() }}/get_all_product').then(response => {
+                this.product_list = response.data.product
+                this.category_list = response.data.category
                 $.LoadingOverlay("hide");
             }).catch(function (error) {
                 alert('error: ' + error.message)
                 $.LoadingOverlay("hide");
-                {#console.log(error);#}
             });
         }
     });

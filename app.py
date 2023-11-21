@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from sqlalchemy import create_engine, text
+from flask_cors import CORS
 import random
 import sqlite3
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 engine = create_engine("mysql+mysqlconnector://root:mysql@localhost/ss13.14_pos")
 connection = engine.connect()
@@ -13,10 +15,10 @@ app.secret_key = 'your secret key'
 @app.context_processor
 def utility_processor():
     def getBaseUrl():
-        return 'http://127.0.0.1:5000'
+        return 'http://127.0.0.1:5050'
 
     def getImagePath():
-        return 'http://127.0.0.1:5000/'
+        return 'http://127.0.0.1:5050/'
 
     return dict(
         getBaseUrl=getBaseUrl,
