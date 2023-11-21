@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from sqlalchemy import create_engine, text
 import random
 import sqlite3
@@ -9,7 +9,6 @@ engine = create_engine("mysql+mysqlconnector://root:mysql@localhost/ss13.14_pos"
 connection = engine.connect()
 app.secret_key = 'your secret key'
 
-import routes
 
 @app.context_processor
 def utility_processor():
@@ -23,6 +22,9 @@ def utility_processor():
         getBaseUrl=getBaseUrl,
         getImagePath=getImagePath
     )
+
+
+import routes
 
 
 @app.route('/')

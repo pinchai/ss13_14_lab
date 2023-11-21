@@ -28,6 +28,16 @@
                 category.name
             </button>
         </a>
+
+        <div class="input-group flex-nowrap mt-2">
+            <input
+                    v-model="txt_src"
+                    type="text"
+                    class="form-control"
+                    placeholder="name, code, barcode ..."
+                    @input="liveSearch"
+            >
+        </div>
     </div>
     <br>
     <br>
@@ -58,7 +68,7 @@
                 </div>
                 <div class="product-detail-container p-2">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="dress-name">item.name</h5>
+                        <h5 class="dress-name">[[ item.name ]]</h5>
                         <div class="d-flex flex-column mb-2">
                             <span class="new-price">0</span>
                             <small class="old-price text-right" style="font-weight: lighter; font-size: 14px">
@@ -98,7 +108,10 @@
         data: {
             color: 'bg-primary',
             is_start: false,
-            product_list: []
+            product_list: [],
+            txt_src: null,
+            typingTimer: null,
+            doneTypingInterval: 1000,
         },
         methods: {
             changeColor() {
@@ -118,7 +131,29 @@
                 this.is_start = false
                 clearInterval(this.intervalId);
                 this.message = "Interval stopped.";
-            }
+            },
+            liveSearch(evt) {
+                let vm = this
+                clearTimeout(this.typingTimer)
+                if (this.txt_src.trim() !== '') {
+                    this.typingTimer = setTimeout(function () {
+                        $.LoadingOverlay("show");
+                        let payload = vm.txt_src.trim()
+                        let url = `http://127.0.0.1:5000/get_product_by_filter?txt_src=${payload}`
+                        axios.get(url).then(response => {
+                            vm.product_list = response.data
+                            $.LoadingOverlay("hide");
+                        }).catch(function (error) {
+                            alert('error: ' + error.message)
+                            $.LoadingOverlay("hide");
+                        });
+                    }, this.doneTypingInterval)
+                } else {
+                    this.typingTimer = setTimeout(function () {
+                        this.product_lists = []
+                    }, this.doneTypingInterval)
+                }
+            },
         },
         created() {
             $.LoadingOverlay("show");
@@ -128,7 +163,7 @@
                 this.product_list = response.data
                 $.LoadingOverlay("hide");
             }).catch(function (error) {
-                alert('error: '+ error.message)
+                alert('error: ' + error.message)
                 $.LoadingOverlay("hide");
                 {#console.log(error);#}
             });
