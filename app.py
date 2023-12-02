@@ -15,10 +15,10 @@ app.secret_key = 'your secret key'
 @app.context_processor
 def utility_processor():
     def getBaseUrl():
-        return 'http://127.0.0.1:5050'
+        return 'http://127.0.0.1:5000'
 
     def getImagePath():
-        return 'http://127.0.0.1:5050/'
+        return 'http://127.0.0.1:5000/'
 
     return dict(
         getBaseUrl=getBaseUrl,
