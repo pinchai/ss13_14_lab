@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "header/header_pos.html" %}
+</head>
+<body>
+
+<div id="app">
+    <div>
+        {#slide show#}
+        <nav class="main-header navbar navbar-expand-md bg-info p-0 m-0">
+            <div class="container-fluid p-0 m-0">
+                <a href="https://clinic.phama-tech.com/admin" class="navbar-brand">
+                    <img src="https://i.pinimg.com/originals/6e/cb/91/6ecb91e73eab30f51b0b29a880338147.png"
+                         style="width: 50px;height: 50px;border-radius: 50%">
+                </a>
+                <marquee>
+                <span class="brand-text font-weight-light" style="font-family: Moul;font-size: 20px;color: white">
+                    អ៊ុីឡាយលក់ចាប់ហួយ 🥰🐣🐵🙈🙉🙊🐸🥬
+                </span>
+                </marquee>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                {#product_card#}
+                <div class="col-6">
+                    {# category #}
+                    <div class="row"
+                         style="position: sticky; top: 0; z-index: 100"
+                    >
+                        <div class="col-12 p-1 bg-white"
+                             style=" box-shadow: 1px 9px 25px -11px gray"
+                        >
+                            <button type="button" class="btn btn-outline-info"
+                                    style="text-transform: uppercase">category
+                            </button>
+                        </div>
+                    </div>
+                    {# prouct #}
+                    <div class="row mt-1" style="max-height: 85vh; overflow: scroll">
+                        <div
+                                class="col-lg-2 col-md-6 col-sm-6 col-3 mb-3 mt-3 ml-3 mr-5"
+                        >
+                            <div
+                                    style="width: 150px"
+                                    class="card"
+                            >
+                                <div class="image-container">
+                                    <div class="first">
+                                        <div class="d-flex justify-content-between align-items-end">
+                                            <span class="discount bg-success">energy drink</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="discount mt-1">-10%</span>
+                                        </div>
+                                    </div>
+                                    <img src="{{ getBaseUrl() }}/static/sting-energy-drink.jpeg"
+                                         class="img-fluid rounded thumbnail-image">
+                                </div>
+                                <div class="product-detail-container p-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="dress-name">Sting</h5>
+                                        <div class="d-flex flex-column mb-2">
+                                            <span class="new-price text-dark">0.50 $</span>
+                                            <del class="old-price text-right"
+                                                 style="font-size: 12px; background-color: yellow; color: firebrick"
+                                            >
+                                                0.50 $
+                                            </del>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center pt-1">
+                                        <div>
+                                            <i class="fa fa-star-o rating-star"></i>
+                                            <span class="rating-number">4.8</span>
+                                        </div>
+                                        <span class="buy">BUY +</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {#sale_list#}
+                <div class="col-6" style="max-height: 85vh; overflow: scroll">
+                    <table class="p-0 m-0 table table-borderless table-striped">
+                        <thead>
+                        <tr class="bg-secondary text-white">
+                            <th>ល.រ</th>
+                            <th>ការពិពណ៌នា</th>
+                            <th>ចំនួន</th>
+                            <th>តម្លៃលក់($)</th>
+                            <th>បញ្ខុះតម្លៃ(%)</th>
+                            <th>សរុប($)</th>
+                            <th>សកម្មភាព</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <span style="color: #cccc">no record...</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>name</td>
+                            <td>
+                                <input
+                                        style="width: 100px; text-align: center"
+                                        type="number"
+                                >
+                            </td>
+                            <td>10</td>
+                            <td>0.0 %</td>
+                            <td>0</td>
+                            <td>
+                                <a href="#" class="text-danger">
+                                    <i class="fas fa-trash"></i>
+                                    លុប
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <div class="row" style="position: sticky; bottom: 10px">
+                        <div class="col-12">
+                            <table class="table table-sm table-borderless table-striped">
+                                <tr>
+                                    <td style="text-align: right">Total ($)</td>
+                                    <td style="text-align: right">0 $</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right">Received amount ($)</td>
+                                    <td style="text-align: right">
+                                        <input
+                                                type="number"
+                                                class="input w-100"
+                                        >
+                                    </td>
+                                <tr>
+                                    <td style="text-align: right">
+                                        <span style="background-color: yellow; color: firebrick"> Change amount ($)</span>
+                                    </td>
+                                    <td style="text-align: right">0 $</td>
+                                </tr>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-danger w-100">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button
+                                    type="button"
+                                    class="btn btn-success w-100"
+                            >Pay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 pb-5">
+    </div>
+</div>
+</body>
+<script>
+    var vue_obj = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: {
+            product_list: [],
+            category_list: [],
+            txt_src: null,
+        },
+        methods: {
+            liveSearch(evt) {
+                let vm = this
+                clearTimeout(this.typingTimer)
+                this.typingTimer = setTimeout(function () {
+                     $("#product_list").LoadingOverlay("show");
+                    let payload = vm.txt_src.trim()
+                    let url = `{{ getBaseUrl() }}/get_product_by_filter?txt_src=${payload}`
+                    axios.get(url).then(response => {
+                        vm.product_list = response.data
+                         $("#product_list").LoadingOverlay("hide");
+                    }).catch(function (error) {
+                        alert('error: ' + error.message)
+                         $("#product_list").LoadingOverlay("hide");
+                    });
+                }, this.doneTypingInterval)
+            },
+            searchByCategory(category_id) {
+                $("#product_list").LoadingOverlay("show");
+                let input = {
+                    'category_id': category_id
+                }
+                axios.post('{{ getBaseUrl() }}/get_product_by_category', input).then(response => {
+                    this.product_list = response.data
+                   $("#product_list").LoadingOverlay("hide");
+                }).catch(function (error) {
+                    alert('error: ' + error.message)
+                   $("#product_list").LoadingOverlay("hide");
+                });
+            },
+        },
+        created() {
+            $.LoadingOverlay("show");
+        },
+        mounted() {
+            axios.get('{{ getBaseUrl() }}/get_all_product').then(response => {
+                this.product_list = response.data.product
+                this.category_list = response.data.category
+                $.LoadingOverlay("hide");
+            }).catch(function (error) {
+                alert('error: ' + error.message)
+                $.LoadingOverlay("hide");
+            });
+        }
+    });
+</script>
+</html>
