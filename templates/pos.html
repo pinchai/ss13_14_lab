@@ -328,12 +328,20 @@
                     formData.append('received_amount', this.received_amount)
 
                     axios.post(url, formData).then(response => {
-                        this.sound('success')
-                        Swal.fire({
-                            title: "Thank you !",
-                            text: "Payment is completed",
-                            icon: "success"
-                        });
+                        if (response.status == 200) {
+                            this.sound('success')
+                            Swal.fire({
+                                title: "Thank you !",
+                                text: "Payment is completed",
+                                icon: "success"
+                            });
+                        }else {
+                             Swal.fire({
+                                title: "Error",
+                                text: "oop error while processing: "+ response.data.error,
+                                icon: "error"
+                            });
+                        }
                     }).catch(function (error) {
                         alert('error: ' + error.message)
                     });
