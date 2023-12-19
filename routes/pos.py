@@ -1,6 +1,7 @@
 import json
 from urllib.parse import urlencode
 import requests
+from datetime import date
 from app import app, connection, text, request, render_template
 
 
@@ -65,7 +66,27 @@ def createPos():
         html = f"<strong>❤️ សរុប:100$</strong>"+"\n"
         html += f"<strong>📝 បានទទួលប្រាក់:{last_sale[0]['received_amount']}$</strong>"
         html_string = html
-    chat_id = ''
-    bot_toked = ''
-    r = requests.get(f"https://api.telegram.org/bot{bot_toked}/sendMessage?chat_id={chat_id}&text={html_string}&parse_mode=HTML")
+
+    html = (
+        "<strong>សរុប: {grand_total}</strong>\n"
+        "<code>បានទទួលប្រាក់: {received_amount}</code>\n"
+        "<code>📆 {date}</code>\n"
+        "<code>=======================</code>\n"
+        "<code>1. coca 10x0.25</code>\n"
+        "<code>2. abc 1x25</code>\n"
+    ).format(
+        grand_total='1,000$',
+        received_amount='100$',
+        date=date.today()
+        ,
+    )
+
+    html = requests.utils.quote(html)
+
+    # Send notification to the request leave employee
+    bot_token = "5442577783:AAHqbqmchMEPsNkyllL6zYG73sBdC_1cyHQ"
+    chat_id = "756357473"
+    config_url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={html}&parse_mode=HTML"
+    res = requests.get(config_url)
+
     return last_sale
