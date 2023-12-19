@@ -65,6 +65,7 @@ def createPos():
         html = f"<strong>❤️ សរុប:100$</strong>"+"\n"
         html += f"<strong>📝 បានទទួលប្រាក់:{last_sale[0]['received_amount']}$</strong>"
         html_string = html
-
-    r = requests.get(f"https://api.telegram.org/bot5442577783:AAHqbqmchMEPsNkyllL6zYG73sBdC_1cyHQ/sendMessage?chat_id=756357473&text={html_string}&parse_mode=HTML")
+    chat_id = ''
+    bot_toked = ''
+    r = requests.get(f"https://api.telegram.org/bot{bot_toked}/sendMessage?chat_id={chat_id}&text={html_string}&parse_mode=HTML")
     return last_sale
