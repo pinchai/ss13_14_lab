@@ -321,11 +321,21 @@
                         text: "Something went wrong!",
                     });
                 } else {
-                    this.sound('success')
-                    Swal.fire({
-                        title: "Thank you !",
-                        text: "Payment is completed",
-                        icon: "success"
+                    let vm = this
+                    let url = `{{ getBaseUrl() }}/pos/create`
+                    let formData = new FormData
+                    formData.append('selected_item', JSON.stringify(this.selected_item))
+                    formData.append('received_amount', this.received_amount)
+
+                    axios.post(url, formData).then(response => {
+                        this.sound('success')
+                        Swal.fire({
+                            title: "Thank you !",
+                            text: "Payment is completed",
+                            icon: "success"
+                        });
+                    }).catch(function (error) {
+                        alert('error: ' + error.message)
                     });
                 }
             },
