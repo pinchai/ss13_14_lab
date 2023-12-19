@@ -18,10 +18,11 @@ def createPos():
 
     # insert sale transaction
     try:
+        # Insert Data to sale
         result = connection.execute(text(f"INSERT INTO sale (date, customer_id, received_amount) VALUES ('2023-12-16', 1, {received_amount})"))
-        # connection.commit()
         sale_id = result.lastrowid
 
+        # Insert Data to sale_detail
         for item in selected_item_obj:
             pro_id = item['id']
             qty = item['qty']
