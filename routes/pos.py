@@ -2,7 +2,10 @@ import json
 from urllib.parse import urlencode
 import requests
 from datetime import date
-from app import app, connection, text, request, render_template
+from app import app, connection, text, request, render_template, Response
+import os
+import datetime
+import pdfkit
 
 
 @app.route('/pos')
@@ -99,3 +102,39 @@ def createPos():
         connection.rollback()
 
         return {'error': f"{e}"}, 201
+
+
+@app.route("/pdf")
+def index_pdf():
+    sale_id = request.args.get('sale_id')
+
+    path = os.getcwd() + '/pdf/invoice.pdf'
+    if not os.path.exists(path):
+        os.makedirs(os.getcwd() + '/pdf')
+
+    data = [
+        {'id': 1, 'name': 'កូកាកូឡា', 'qty': 20, 'price': 0.25},
+        {'id': 1, 'name': 'sting', 'qty': 10, 'price': 0.25},
+        {'id': 1, 'name': 'abc', 'qty': 3, 'price': 25},
+        {'id': 1, 'name': 'Anchor', 'qty': 6, 'price': 25},
+        {'id': 1, 'name': 'KRUD', 'qty': 4, 'price': 25},
+        {'id': 1, 'name': 'VATANAK', 'qty': 1, 'price': 25},
+        {'id': 1, 'name': 'DRAGON', 'qty': 2, 'price': 25},
+    ]
+
+    created_at = '2024-01-02'
+    server_url = request.url_root
+    html = render_template("invoice.html", data=data, now=created_at, server_url=server_url)
+    options = {
+        # 'page-size': 'a7',
+        'page-height': '10in',
+        'page-width': '3in',
+        'margin-top': '0.1in',
+        'margin-right': '0in',
+        'margin-bottom': '0.1in',
+        'margin-left': '0in',
+    }
+    pdf = pdfkit.from_string(html, path, options)
+    pdf_preview = pdfkit.from_string(html, '', options)
+
+    return Response(pdf_preview, mimetype="application/pdf")

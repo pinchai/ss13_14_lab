@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 from sqlalchemy import create_engine, text
 from flask_cors import CORS
 import random
