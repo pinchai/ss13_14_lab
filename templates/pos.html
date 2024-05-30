@@ -5,19 +5,6 @@
 </head>
 <body>
 <div id="app">
-    <!-- Button trigger modal -->
-    <button
-            v-if="false"
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#staticBackdrop"
-    >
-        Launch static backdrop modal
-    </button>
-    <button @click="addModal">Add</button>
-
-    <!-- Modal -->
     <div
             class="modal fade"
             id="staticBackdrop"
@@ -71,8 +58,11 @@
                          style="width: 50px;height: 50px;border-radius: 50%">
                 </a>
                 <marquee>
-                <span class="brand-text font-weight-light" style="font-family: Moul;font-size: 20px;color: white">
-                    អ៊ុីឡាយលក់ចាប់ហួយ 🥰🐣🐵🙈🙉🙊🐸🥬
+                <span
+                        class="brand-text font-weight-light"
+                        style="font-family: Moul;font-size: 50px; color: white"
+                >
+                    អ៊ុីឡាយលក់ចាប់ហួយ 🐣🐸🥬
                 </span>
                 </marquee>
             </div>
@@ -403,12 +393,6 @@
                     });
                 }
             },
-            addModal() {
-                $('#staticBackdrop').modal('show')
-            },
-            closeModal() {
-                $('#staticBackdrop').modal('hide')
-            }
         },
         created() {
             $.LoadingOverlay("show");

@@ -3,7 +3,7 @@ from app import app, connection, text, request
 
 @app.route('/get_all_product')
 def getAllProduct():
-    category = connection.execute(text("""SELECT * FROM category """))
+    category = connection.execute(text("""SELECT * FROM category"""))
 
     result = connection.execute(text(
         """
@@ -33,8 +33,8 @@ def getAllProduct():
     for item_cat in category:
         category_arr.append(
             {
-                'id': item_cat.id,
-                'name': item_cat.name,
+                'id': item_cat[0],
+                'name': item_cat[1],
             }
         )
     data = {

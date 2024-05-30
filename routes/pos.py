@@ -107,6 +107,10 @@ def createPos():
 @app.route("/pdf")
 def index_pdf():
     sale_id = request.args.get('sale_id')
+    current_sale = connection.execute(text(f"SELECT * From sale where id ='{sale_id}'"))
+    current_sale_detail = connection.execute(text(f"SELECT * From sale where id ='{sale_id}'"))
+    for sale in current_sale:
+        print(sale)
 
     path = os.getcwd() + '/pdf/invoice.pdf'
     if not os.path.exists(path):
