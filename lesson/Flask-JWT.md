@@ -1,5 +1,8 @@
 ### Flask-JWT
 
+```
+https://flask-jwt-extended.readthedocs.io/en/latest/refreshing_tokens.html
+```
 ````
 pip install flask-jwt-extended
 ````
